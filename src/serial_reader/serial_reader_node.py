@@ -40,7 +40,7 @@ class HyperionChlorophyllNode(Node):
         self.thread = threading.Thread(target=self.driver.read_data_continuous, args=(self.publish_data,))
         self.thread.daemon = True
         self.thread.start()
-        self.rate = self.create_rate(self.publish_rate)
+        self.rate = rclpy.Rate(self.publish_rate)
 
     def publish_data(self, raw_data):
         msg = String()
