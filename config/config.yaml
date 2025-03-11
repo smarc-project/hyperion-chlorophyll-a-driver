@@ -1,0 +1,4 @@
+port: /dev/ttyUSB0
+baudrate: 115200
+beam_width: 30
+multibeam: true
