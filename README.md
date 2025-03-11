@@ -1,12 +1,8 @@
-# valeport_hyperion_chlorophyll_driver
+# Valeport Hyperion Chlorophyll a ROS 2 Driver
 
-ROS 2 driver for Valeport Hyperion Chlorophyll a Fluorometer
+This repository contains a ROS 2 driver for the Valeport Hyperion Chlorophyll a Fluorometer sensor, used for underwater chlorophyll a measurement. The driver allows for communication between the Hyperion Chlorophyll a sensor and a ROS 2-based system, enabling the integration of chlorophyll a data into robotic applications.
 
-## Overview
-
-This project provides a ROS 2 driver for the Valeport Hyperion Chlorophyll a Fluorometer sensor, used for underwater chlorophyll a measurement. The driver allows for communication between the Hyperion Chlorophyll a sensor and a ROS 2-based system, enabling the integration of chlorophyll a data into robotic applications.
-
-Link to sensor datasheet: [Valeport Hyperion Chlorophyll a](https://www.valeport.co.uk/products/hyperion-chlorophyll-a/)
+Link to official website of the vendor: [Valeport Hyperion Chlorophyll a](https://www.valeport.co.uk/products/hyperion-chlorophyll-a/)
 
 ## Installation
 
@@ -14,11 +10,11 @@ To install the driver, follow these steps:
 
 1. Clone the repository:
     ```sh
-    git clone https://github.com/yourusername/valeport_hyperion_chlorophyll_driver.git
+    git clone https://github.com/NinjaTuna007/hyperion-chlorophyll-a-driver.git
     ```
 2. Navigate to the project directory:
     ```sh
-    cd valeport_hyperion_chlorophyll_driver
+    cd hyperion_chlorophyll_driver
     ```
 3. Install dependencies:
     ```sh
