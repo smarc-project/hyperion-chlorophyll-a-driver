@@ -77,16 +77,14 @@ valeport_hyperion_chlorophyll_driver/
 ├── launch/
 │   └── hyperion_chlorophyll.launch.py
 ├── src/
-│   ├── reader/
-│   │   ├── hyperion_chlorophyll_driver.py
-│   │   ├── hyperion_chlorophyll_node.py
-│   ├── decoder/
-│   │   ├── chlorophyll_decoder.py
+│   ├── serial_reader/
+│   │   ├── serial_reader_node.py  # Node for reading data from the sensor
+│   ├── data_processor/
+│   │   ├── data_processor_node.py  # Node for processing chlorophyll data
 │   ├── tests/
 │   │   ├── test_driver.py
 ├── msg/
 │   └── ChlorophyllData.msg
-│   └── test_data.json
 └── docs/
     ├── datasheet.pdf
     └── user_manual.pdf
@@ -137,17 +135,14 @@ The driver uses the following ROS 2 parameters:
 
 ## Roles of the various Python Scripts
 
-### driver/hyperion_chlorophyll_driver.py
-This script handles the low-level communication with the Valeport Hyperion Chlorophyll a sensor. It reads raw data from the sensor via a serial connection and processes it.
+### src/serial_reader/serial_reader_node.py
+This script handles the low-level communication with the Valeport Hyperion Chlorophyll a sensor. It reads raw data from the sensor via a serial connection and publishes it to ROS 2 topics.
 
-### driver/hyperion_chlorophyll_node.py
-This script is a ROS 2 node that uses the `hyperion_chlorophyll_driver.py` to read data from the sensor and publish it to ROS 2 topics. It publishes both raw and processed data.
-
-### decoder/chlorophyll_decoder.py
-This script is a ROS 2 node that subscribes to the raw data topic published by `hyperion_chlorophyll_node.py` and processes the data into a more structured format, which it then publishes to another topic.
+### src/data_processor/data_processor_node.py
+This script is a ROS 2 node that subscribes to the raw data topic published by `serial_reader_node.py` and processes the data into a more structured format, which it then publishes to another topic.
 
 ### tests/test_driver.py
-This script is a test script that checks if the driver is up and running. It is used to verify that the driver is functioning correctly using mock data stored inside `msg/test_data.json`.
+This script is a test script that checks if the driver is up and running. It is used to verify that the driver is functioning correctly using mock data stored inside `data/test_data.json`.
 
 ## Contributing
 
