@@ -11,4 +11,11 @@ def generate_launch_description():
             output='screen',
             parameters=[config]
         ),
+        Node(
+            package='valeport_hyperion_chlorophyll_driver',
+            executable='chlorophyll_decoder',
+            name='chlorophyll_decoder',
+            output='screen',
+            parameters=[config]
+        ),
     ])

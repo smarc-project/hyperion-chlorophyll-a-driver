@@ -3,6 +3,7 @@ from rclpy.node import Node
 from std_msgs.msg import String
 import serial
 import threading
+import time  # Add this import
 
 class HyperionChlorophyllDriver:
     def __init__(self, port, baudrate):
@@ -17,11 +18,18 @@ class HyperionChlorophyllDriver:
             return data
         return None
 
-    def read_data_continuous(self, callback):
+    def read_data_continuous(self, callback): 
+        
+        ''''
+        This function reads data continuously from the serial port and calls the callback function with the data as an argument.
+        Deprecated in favor of faster and more efficient timer-based reading. 
+        '''
         while True:
             if self.serial_connection.in_waiting > 0:
                 data = self.serial_connection.readline().decode('utf-8').strip()
-                callback(data)
+                if data:  # Check if data is not empty
+                    callback(data)
+            time.sleep(0.1)  # Add a small delay
 
     def close_connection(self):
         self.serial_connection.close()
@@ -37,10 +45,15 @@ class HyperionChlorophyllNode(Node):
         self.publish_rate = self.get_parameter('publish_rate').get_parameter_value().integer_value
         self.driver = HyperionChlorophyllDriver(port, baudrate)
         self.publisher_ = self.create_publisher(String, 'chlorophyll/raw_data', 10)
-        self.thread = threading.Thread(target=self.driver.read_data_continuous, args=(self.publish_data,))
-        self.thread.daemon = True
-        self.thread.start()
+        self.timer = self.create_timer(1.0 / self.publish_rate, self.timer_callback)  # Add a timer
         self.rate = rclpy.Rate(self.publish_rate)
+
+    def timer_callback(self):
+        raw_data = self.driver.read_data()
+        if raw_data:
+            msg = String()
+            msg.data = raw_data
+            self.publisher_.publish(msg)
 
     def publish_data(self, raw_data):
         msg = String()
