@@ -20,8 +20,7 @@ setup(
     tests_require=['pytest'],
     entry_points={
         'console_scripts': [
-            'hyperion_chlorophyll_node = hyperion_chlorophyll_a_driver.src.serial_reader.serial_reader_node:main',
-            'chlorophyll_decoder = hyperion_chlorophyll_a_driver.src.data_processor.data_processor_node:main',
+            'chlorophyll_decoder = hyperion_chlorophyll_a_driver.data_processor_node:main',
         ],
     },
 )
